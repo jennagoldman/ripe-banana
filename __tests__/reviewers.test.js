@@ -20,4 +20,34 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('gets all reviewers', async() => {
+    const reviewers = await getReviewers();
+
+    return request(app)
+      .get('/api/v1/reviewers')
+      .then(res => {
+        reviewers.forEach(reviewer => {
+          expect(res.body).toContainEqual({
+            _id: reviewer._id,
+            name: reviewer.name,
+            company: reviewer.company
+          });
+        });
+      });
+  });
+
+  it('gets a reviewer by id', async() => {
+    const reviewer = await getReviewer();
+
+    return request(app)
+      .get(`/api/v1/reviewers/${reviewer._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: reviewer._id,
+          name: reviewer.name,
+          company: reviewer.company
+        });
+      });
+  });
 });
