@@ -2,6 +2,7 @@ const Studio = require('../lib/models/Studio');
 const Actor = require('../lib/models/Actor');
 const Film = require('../lib/models/Film');
 const Reviewer = require('../lib/models/Reviewer');
+const Review = require('../lib/models/Review');
 const chance = require('chance').Chance();
 const moviesNames = require('movies-names');
 
@@ -9,7 +10,8 @@ module.exports = async({
   studiosToCreate = 10,
   actorsToCreate = 50,
   filmsToCreate = 100,
-  reviewersToCreate = 20 
+  reviewersToCreate = 20,
+  reviewsToCreate = 500
 } = {}) => {
   const studioNames = ['Sony Pictures', 'Warner Bros', '20th Century Fox', 'Lions Gate', 'Dreamworks', 'LucasArts', 'Walt Disney Studios', 'New Line Cinema', 'Paramount Pictures', 'Universal Pictures'];
 
@@ -40,5 +42,13 @@ module.exports = async({
   const reviewers = await Reviewer.create([...Array(reviewersToCreate)].map(() => ({
     name: chance.name(),
     company: chance.animal()
+  })));
+
+  const reviews = await Review.create([...Array(reviewsToCreate)].map(() => ({
+    rating: chance.integer({ min: 1, max: 5 }),
+    reviewer: chance.pickone(reviewers)._id,
+    review: chance.paragraph({ sentences: 1 }),
+    film: chance.pickone(films)._id
+
   })));
 };
