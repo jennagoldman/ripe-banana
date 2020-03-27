@@ -52,13 +52,28 @@ describe('film routes', () => {
   });
 });
 
-// it('gets a studio by id', async() => {
-//   const studio = await getStudio();
+it('gets a film by id', async() => {
+  const film = await getFilm();
 
-//   return request(app)
-//     .get(`/api/v1/studios/${studio._id}`)
-//     .then(res => {
-//       expect(res.body).toEqual(studio);
-//     });
-// });
+  return request(app)
+    .get(`/api/v1/films/${film._id}`)
+    .then(res => {
+      expect(res.body).toEqual({
+        title: film.title,
+        released: film.released,
+        studio: {
+          _id: film.studio,
+          name: expect.any(String)
+        },
+        cast: [{
+          _id: expect.any(String),
+          role: expect.any(String),
+          actor: {
+            _id: expect.any(String),
+            name: expect.any(String)
+          }
+        }]
+      });
+    });
+});
 
