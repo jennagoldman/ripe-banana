@@ -31,28 +31,34 @@ describe('film routes', () => {
       });
   });
 
-  // it('gets all studio names', async() => {
-  //   const studios = await getStudios();
+  it('gets all films', async() => {
+    const films = await getFilms();
 
-  //   return request(app)
-  //     .get('/api/v1/studios')
-  //     .then(res => {
-  //       studios.forEach(studio => {
-  //         expect(res.body).toContainEqual({
-  //           _id: studio._id,
-  //           name: studio.name
-  //         });
-  //       });
-  //     });
-  // });
-
-  // it('gets a studio by id', async() => {
-  //   const studio = await getStudio();
-
-  //   return request(app)
-  //     .get(`/api/v1/studios/${studio._id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual(studio);
-  //     });
-  // });
+    return request(app)
+      .get('/api/v1/films')
+      .then(res => {
+        films.forEach(film => {
+          expect(res.body).toContainEqual({
+            _id: film._id,
+            title: film.title,
+            released: film.released,
+            studio: {
+              _id: film.studio,
+              name: expect.any(String)
+            }
+          });
+        });
+      });
+  });
 });
+
+// it('gets a studio by id', async() => {
+//   const studio = await getStudio();
+
+//   return request(app)
+//     .get(`/api/v1/studios/${studio._id}`)
+//     .then(res => {
+//       expect(res.body).toEqual(studio);
+//     });
+// });
+
