@@ -19,7 +19,20 @@ describe('actor routes', () => {
           __v: 0
         });
       });
-
   });
-})
-;
+
+  it('gets all actors', async() => {
+    const actors = await getActors();
+
+    return request(app)
+      .get('/api/v1/actors')
+      .then(res => {
+        actors.forEach(actor => {
+          expect(res.body).toContainEqual({
+            _id: actor._id,
+            name: actor.name
+          });
+        });
+      });
+  });
+});
