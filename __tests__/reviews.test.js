@@ -36,11 +36,11 @@ describe('review routes', () => {
       .then(res => {
         reviews.forEach(review => {
           expect(res.body).toContainEqual({
-            _id: review._id,
-            rating: review.rating,
-            review: review.review,
+            _id: expect.any(String),
+            rating: expect.any(Number),
+            review: expect.any(String),
             film: {
-              _id: review.film,
+              _id: expect.any(String),
               title: expect.any(String)
             }
           });

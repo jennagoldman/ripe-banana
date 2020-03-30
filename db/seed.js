@@ -49,6 +49,5 @@ module.exports = async({
     reviewer: chance.pickone(reviewers)._id,
     review: chance.paragraph({ sentences: 1 }),
     film: chance.pickone(films)._id
-
   })));
 };
