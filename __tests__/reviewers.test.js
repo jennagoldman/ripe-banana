@@ -46,7 +46,8 @@ describe('reviewer routes', () => {
         expect(res.body).toEqual({
           _id: reviewer._id,
           name: reviewer.name,
-          company: reviewer.company
+          company: reviewer.company,
+          reviews: expect.any(Array)
         });
       });
   });
