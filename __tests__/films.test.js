@@ -59,6 +59,7 @@ it('gets a film by id', async() => {
     .get(`/api/v1/films/${film._id}`)
     .then(res => {
       expect(res.body).toEqual({
+        _id: film._id,
         title: film.title,
         released: film.released,
         studio: {
@@ -72,7 +73,8 @@ it('gets a film by id', async() => {
             _id: expect.any(String),
             name: expect.any(String)
           }
-        }]
+        }],
+        reviews: expect.any(Array)
       });
     });
 });
